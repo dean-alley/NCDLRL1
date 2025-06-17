@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalRankLens Report - Debug Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .report-meta {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .keyword-group {
+            background: white;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .group-header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .keyword-results {
+            padding: 25px;
+        }
+
+        .keyword-item {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+
+        .keyword-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .keyword-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .results-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.1em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 5px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .result-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .result-snippet {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .maps-result {
+            border-left-color: #28a745;
+        }
+
+        .local-services-result {
+            border-left-color: #ffc107;
+        }
+
+        .organic-result {
+            border-left-color: #17a2b8;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .meta-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .competitive-insights {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .insight-title {
+            color: #856404;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .insight-text {
+            color: #856404;
+        }
+
+        .data-source-section {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .data-source-title {
+            color: #0066cc;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .data-source-content {
+            color: #004080;
+            line-height: 1.6;
+        }
+
+        .data-source-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .data-source-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LocalRankLens Report</h1>
+            <div class="subtitle">Local Search Competitive Intelligence for Debug Business</div>
+        </div>
+
+        <div class="report-meta">
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Business</div>
+                    <div class="meta-value">Debug Business</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">Spokane, WA</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Report Date</div>
+                    <div class="meta-value">June 16, 2025 at 09:53 PM</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Keywords Analyzed</div>
+                    <div class="meta-value">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>Executive Summary</h2>
+            <p>This report analyzes local search visibility for <strong>Debug Business</strong> across 1 strategic keywords in Spokane, WA. The analysis covers Google Maps listings, Local Services Ads, and organic search results to provide comprehensive competitive intelligence.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Successful Searches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Maps Listings Found</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Local Services Ads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Organic Results</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-source-section">
+            <div class="data-source-title">📊 Data Sources & Methodology</div>
+            <div class="data-source-content">
+                <p><strong>How This Analysis Works:</strong></p>
+                <ul class="data-source-list">
+                    <li><strong>Search Engine:</strong> Google Search via SerpAPI (real-time data)</li>
+                    <li><strong>Location:</strong> Spokane, WA - localized search results</li>
+                    <li><strong>Data Points Collected:</strong>
+                        <ul>
+                            <li>🗺️ Google Maps/Local Pack listings (top 3)</li>
+                            <li>🎯 Local Services Ads (Google Guaranteed)</li>
+                            <li>🔍 Organic search results (top 5)</li>
+                            <li>💰 Paid search ads</li>
+                        </ul>
+                    </li>
+                    <li><strong>Analysis Date:</strong> June 16, 2025 at 09:53 PM</li>
+                    <li><strong>Keywords Processed:</strong> 1 of 1 successfully analyzed</li>
+                </ul>
+                <p><em>Note: This competitive intelligence is based on public search results and provides insights into your market landscape for strategic planning.</em></p>
+            </div>
+        </div>
+
+        
+        <div class="keyword-group">
+            <div class="group-header">
+                Debug_group Keywords (1 keywords)
+            </div>
+            <div class="keyword-results">
+                
+                
+                <div class="keyword-item">
+                    <div class="keyword-title">"sprinkler repair Spokane"</div>
+                    
+                    
+                    <div class="results-section">
+                        <div class="section-title">🗺️ Google Maps Listings (Top 3)</div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Marko&#39;s Sprinklers</div>
+                            <div class="result-meta">
+                                ⭐ 4.7 (141 reviews)
+                                 | 📞 (509) 489-1901
+                                 | 📍 Spokane, WA
+                            </div>
+                        </div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Supreme Sprinklers</div>
+                            <div class="result-meta">
+                                ⭐ 4.9 (127 reviews)
+                                 | 📞 (509) 867-6374
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Jones Sprinklers, Inc.</div>
+                            <div class="result-meta">
+                                ⭐ 4.9 (1400 reviews)
+                                 | 📞 (509) 701-2598
+                                 | 📍 Spokane Valley, WA
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+
+                    
+                    <div class="results-section">
+                        <div class="section-title">🔍 Organic Search Results (Top 5)</div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Marko&#39;s Sprinklers: Spokane Sprinkler Installation ...</div>
+                            <div class="result-meta">
+                                🌐 markossprinklers.com | Position: 1
+                            </div>
+                            
+                            <div class="result-snippet">We specialize in all aspects of lawn irrigation including; Sprinkler Installations, Sprinkler Repairs, Sprinkler turn-ons, Sprinkler Blowouts, Drip Line ...</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Sprinkler Repair &amp; Irrigation Services in Spokane, WA</div>
+                            <div class="result-meta">
+                                🌐 groundsguys.com | Position: 2
+                            </div>
+                            
+                            <div class="result-snippet">The average cost for repairing a sprinkler system ranges from $75 to $250, but expenses can increase if you have serious issues.</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Sprinkler Systems for Residential Properties in Spokane, WA</div>
+                            <div class="result-meta">
+                                🌐 supremesprinklersllc.com | Position: 3
+                            </div>
+                            
+                            <div class="result-snippet">Serving Spokane &amp; the Spokane Valley, we design, install &amp; maintain residential sprinkler systems and irrigation systems of all sizes!</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Sprinkler Repair Spokane, WA - Last Updated June 2025</div>
+                            <div class="result-meta">
+                                🌐 yelp.com | Position: 4
+                            </div>
+                            
+                            <div class="result-snippet">Top 10 Best Sprinkler Repair in Spokane, WA - Last Updated June 2025 - Yelp - Lawrence Landscape and Sprinklers, Jones Sprinklers, Wize Guyz Irrigation, ...</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Recommendations for affordable quality sprinkler repair?</div>
+                            <div class="result-meta">
+                                🌐 reddit.com | Position: 5
+                            </div>
+                            
+                            <div class="result-snippet">I&#39;ve used Auto-Rain to move sprinkler lines and for our annual back flow test. I&#39;ve found their work to be solid and pricing to be quite fair.</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
+
+        <div class="footer">
+            <p>Report generated by LocalRankLens on June 16, 2025 at 09:53 PM</p>
+            <p>This report provides competitive intelligence for digital marketing strategy and client presentations.</p>
+        </div>
+    </div>
+</body>
+</html>

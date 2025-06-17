@@ -182,25 +182,29 @@ class LocalRankLens:
 def main():
     """Main entry point for the application."""
     try:
-        # Create and run LocalRankLens
-        lrl = LocalRankLens()
+        # Check for custom config path from environment variable
+        import os
+        config_path = os.environ.get('CONFIG_PATH', 'config.json')
+
+        # Create and run LocalRankLens with custom config path
+        lrl = LocalRankLens(config_path=config_path)
         report_path = lrl.run_analysis()
 
         print("\n" + "="*60)
-        print("🎉 LocalRankLens Analysis Complete!")
+        print("LocalRankLens Analysis Complete!")
         print("="*60)
-        print(f"📊 Report generated: {report_path}")
-        print(f"📁 Open the file in your browser to view the results")
+        print(f"Report generated: {report_path}")
+        print(f"Open the file in your browser to view the results")
         print("="*60)
 
         return 0
 
     except KeyboardInterrupt:
-        print("\n❌ Analysis cancelled by user")
+        print("\nAnalysis cancelled by user")
         return 1
 
     except Exception as e:
-        print(f"\n❌ Analysis failed: {e}")
+        print(f"\nAnalysis failed: {e}")
         return 1
 
 

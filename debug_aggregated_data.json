@@ -1,0 +1,428 @@
+{
+  "summary": {
+    "total_keywords": 1,
+    "successful_searches": 1,
+    "failed_searches": 0
+  },
+  "by_keyword_group": {
+    "debug_group": {
+      "keyword_count": 1,
+      "successful_searches": 1,
+      "total_maps_listings": 3,
+      "total_local_services": 0,
+      "total_organic_results": 5,
+      "results": [
+        {
+          "keyword": "sprinkler system installation Spokane",
+          "keyword_group": "debug_group",
+          "search_metadata": {
+            "query": "",
+            "location": "",
+            "total_results": 0,
+            "time_taken": 1.9,
+            "search_url": "https://www.google.com/search?q=sprinkler+system+installation+Spokane&oq=sprinkler+system+installation+Spokane&uule=w+CAIQICIYU3Bva2FuZSxXQSxVbml0ZWQgU3RhdGVz&hl=en&gl=us&num=10&start=0&sourceid=chrome&ie=UTF-8"
+          },
+          "maps_listings": [
+            {
+              "position": 1,
+              "title": "Supreme Sprinklers",
+              "business_name": "Supreme Sprinklers",
+              "rating": 4.9,
+              "reviews": 127,
+              "type": "Lawn sprinkler system contractor",
+              "address": "",
+              "phone": "(509) 867-6374",
+              "website": "",
+              "hours": "Closed \u22c5 Opens 8 AM Tue",
+              "service_options": {},
+              "gps_coordinates": {},
+              "place_id": "13074407758964307293",
+              "thumbnail": ""
+            },
+            {
+              "position": 2,
+              "title": "Jones Sprinklers, Inc.",
+              "business_name": "Jones Sprinklers, Inc.",
+              "rating": 4.9,
+              "reviews": 1400,
+              "type": "Lawn sprinkler system contractor",
+              "address": "Spokane Valley, WA",
+              "phone": "(509) 701-2598",
+              "website": "",
+              "hours": "Closed \u22c5 Opens 8 AM Tue",
+              "service_options": {},
+              "gps_coordinates": {
+                "latitude": 47.61935,
+                "longitude": -117.25098
+              },
+              "place_id": "629071207627597647",
+              "thumbnail": ""
+            },
+            {
+              "position": 3,
+              "title": "Marko's Sprinklers",
+              "business_name": "Marko's Sprinklers",
+              "rating": 4.7,
+              "reviews": 141,
+              "type": "Lawn sprinkler system contractor",
+              "address": "Spokane, WA",
+              "phone": "(509) 489-1901",
+              "website": "",
+              "hours": "Closed \u22c5 Opens 7 AM Tue",
+              "service_options": {},
+              "gps_coordinates": {
+                "latitude": 47.66518,
+                "longitude": -117.38228
+              },
+              "place_id": "13838079409615956735",
+              "thumbnail": ""
+            }
+          ],
+          "local_services_ads": [],
+          "organic_results": [
+            {
+              "position": 1,
+              "title": "Sprinkler Systems for Residential Properties in Spokane, WA",
+              "link": "https://supremesprinklersllc.com/",
+              "domain": "supremesprinklersllc.com",
+              "snippet": "Serving Spokane & the Spokane Valley, we design, install & maintain residential sprinkler systems and irrigation systems of all sizes!",
+              "displayed_link": "https://supremesprinklersllc.com",
+              "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5e3b4b39ef840445a367a1d4a1abbabc61.png",
+              "sitelinks": {
+                "inline": [
+                  {
+                    "title": "Winterization",
+                    "link": "https://supremesprinklersllc.com/spokane-sprinkler-blowout-winterization/"
+                  },
+                  {
+                    "title": "New Sprinkler Systems",
+                    "link": "https://supremesprinklersllc.com/spokane-new-sprinkler-system-installation/"
+                  },
+                  {
+                    "title": "Sprinkler Start Ups",
+                    "link": "https://supremesprinklersllc.com/spokane-spring-sprinkler-start-ups/"
+                  },
+                  {
+                    "title": "Contact",
+                    "link": "https://supremesprinklersllc.com/contact-supreme-sprinklers-spokane/"
+                  }
+                ]
+              },
+              "rich_snippet": {},
+              "about_this_result": {}
+            },
+            {
+              "position": 2,
+              "title": "Sprinkler Repair & Irrigation Services in Spokane, WA",
+              "link": "https://www.groundsguys.com/spokane/residential-services/irrigation/",
+              "domain": "groundsguys.com",
+              "snippet": "Need sprinkler installation and repair in Spokane, WA? Call the experts at The Grounds Guys of Spokane for irrigation repair and installation services.",
+              "displayed_link": "https://www.groundsguys.com \u203a residential-services \u203a ir...",
+              "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5ecfed65e2d287bf89437083afa47df032.png",
+              "sitelinks": [],
+              "rich_snippet": {},
+              "about_this_result": {}
+            },
+            {
+              "position": 3,
+              "title": "Marko's Sprinklers: Spokane Sprinkler Installation ...",
+              "link": "https://markossprinklers.com/",
+              "domain": "markossprinklers.com",
+              "snippet": "We specialize in all aspects of lawn irrigation including; Sprinkler Installations, Sprinkler Repairs, Sprinkler turn-ons, Sprinkler Blowouts, Drip Line Repairs ...",
+              "displayed_link": "https://markossprinklers.com",
+              "favicon": "",
+              "sitelinks": {
+                "inline": [
+                  {
+                    "title": "Services",
+                    "link": "https://markossprinklers.com/sprinkler-installation-and-repair-services"
+                  },
+                  {
+                    "title": "Case Studies",
+                    "link": "https://markossprinklers.com/case-studies"
+                  },
+                  {
+                    "title": "About",
+                    "link": "https://markossprinklers.com/about"
+                  },
+                  {
+                    "title": "Blog",
+                    "link": "https://markossprinklers.com/blog"
+                  }
+                ]
+              },
+              "rich_snippet": {},
+              "about_this_result": {}
+            },
+            {
+              "position": 4,
+              "title": "Looking for good sprinkler installation company? : r/Spokane",
+              "link": "https://www.reddit.com/r/Spokane/comments/1b9io41/looking_for_good_sprinkler_installation_company/",
+              "domain": "reddit.com",
+              "snippet": "We went with B&B in the summer of 2020. It was on the higher end of our estimates but they offered a good warranty and availability to install sooner than ...",
+              "displayed_link": "5 comments \u00b7 1 year ago",
+              "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5e8ac7d985a5b0114e9b93f1e55c3ddb09.png",
+              "sitelinks": {
+                "list": [
+                  {
+                    "title": "Sprinkler blowout recommendations? : r/Spokane - Reddit",
+                    "link": "https://www.reddit.com/r/Spokane/comments/q19o55/sprinkler_blowout_recommendations/",
+                    "answer_count": 15,
+                    "date": "Oct 4, 2021"
+                  },
+                  {
+                    "title": "Recommendations for affordable quality sprinkler repair?",
+                    "link": "https://www.reddit.com/r/Spokane/comments/vp8qit/recommendations_for_affordable_quality_sprinkler/",
+                    "answer_count": 8,
+                    "date": "Jul 1, 2022"
+                  }
+                ]
+              },
+              "rich_snippet": {},
+              "about_this_result": {}
+            },
+            {
+              "position": 5,
+              "title": "Jones Sprinklers: Sprinkler Systems Service",
+              "link": "https://jonessprinklers.com/",
+              "domain": "jonessprinklers.com",
+              "snippet": "Our team of professionals is highly trained and experienced in all aspects of sprinkler installation, maintenance, and repair.",
+              "displayed_link": "https://jonessprinklers.com",
+              "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5efa4010b920730b32d2570bc073097c71.png",
+              "sitelinks": {
+                "inline": [
+                  {
+                    "title": "Contact",
+                    "link": "https://jonessprinklers.com/contact/"
+                  },
+                  {
+                    "title": "About",
+                    "link": "https://jonessprinklers.com/about/"
+                  },
+                  {
+                    "title": "Sprinkler Backflow Testing",
+                    "link": "https://jonessprinklers.com/sprinkler-backflow-testing/"
+                  },
+                  {
+                    "title": "Services",
+                    "link": "https://jonessprinklers.com/services/"
+                  }
+                ]
+              },
+              "rich_snippet": {},
+              "about_this_result": {}
+            }
+          ],
+          "ads": [],
+          "knowledge_graph": {}
+        }
+      ]
+    }
+  },
+  "all_results": [
+    {
+      "keyword": "sprinkler system installation Spokane",
+      "keyword_group": "debug_group",
+      "search_metadata": {
+        "query": "",
+        "location": "",
+        "total_results": 0,
+        "time_taken": 1.9,
+        "search_url": "https://www.google.com/search?q=sprinkler+system+installation+Spokane&oq=sprinkler+system+installation+Spokane&uule=w+CAIQICIYU3Bva2FuZSxXQSxVbml0ZWQgU3RhdGVz&hl=en&gl=us&num=10&start=0&sourceid=chrome&ie=UTF-8"
+      },
+      "maps_listings": [
+        {
+          "position": 1,
+          "title": "Supreme Sprinklers",
+          "business_name": "Supreme Sprinklers",
+          "rating": 4.9,
+          "reviews": 127,
+          "type": "Lawn sprinkler system contractor",
+          "address": "",
+          "phone": "(509) 867-6374",
+          "website": "",
+          "hours": "Closed \u22c5 Opens 8 AM Tue",
+          "service_options": {},
+          "gps_coordinates": {},
+          "place_id": "13074407758964307293",
+          "thumbnail": ""
+        },
+        {
+          "position": 2,
+          "title": "Jones Sprinklers, Inc.",
+          "business_name": "Jones Sprinklers, Inc.",
+          "rating": 4.9,
+          "reviews": 1400,
+          "type": "Lawn sprinkler system contractor",
+          "address": "Spokane Valley, WA",
+          "phone": "(509) 701-2598",
+          "website": "",
+          "hours": "Closed \u22c5 Opens 8 AM Tue",
+          "service_options": {},
+          "gps_coordinates": {
+            "latitude": 47.61935,
+            "longitude": -117.25098
+          },
+          "place_id": "629071207627597647",
+          "thumbnail": ""
+        },
+        {
+          "position": 3,
+          "title": "Marko's Sprinklers",
+          "business_name": "Marko's Sprinklers",
+          "rating": 4.7,
+          "reviews": 141,
+          "type": "Lawn sprinkler system contractor",
+          "address": "Spokane, WA",
+          "phone": "(509) 489-1901",
+          "website": "",
+          "hours": "Closed \u22c5 Opens 7 AM Tue",
+          "service_options": {},
+          "gps_coordinates": {
+            "latitude": 47.66518,
+            "longitude": -117.38228
+          },
+          "place_id": "13838079409615956735",
+          "thumbnail": ""
+        }
+      ],
+      "local_services_ads": [],
+      "organic_results": [
+        {
+          "position": 1,
+          "title": "Sprinkler Systems for Residential Properties in Spokane, WA",
+          "link": "https://supremesprinklersllc.com/",
+          "domain": "supremesprinklersllc.com",
+          "snippet": "Serving Spokane & the Spokane Valley, we design, install & maintain residential sprinkler systems and irrigation systems of all sizes!",
+          "displayed_link": "https://supremesprinklersllc.com",
+          "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5e3b4b39ef840445a367a1d4a1abbabc61.png",
+          "sitelinks": {
+            "inline": [
+              {
+                "title": "Winterization",
+                "link": "https://supremesprinklersllc.com/spokane-sprinkler-blowout-winterization/"
+              },
+              {
+                "title": "New Sprinkler Systems",
+                "link": "https://supremesprinklersllc.com/spokane-new-sprinkler-system-installation/"
+              },
+              {
+                "title": "Sprinkler Start Ups",
+                "link": "https://supremesprinklersllc.com/spokane-spring-sprinkler-start-ups/"
+              },
+              {
+                "title": "Contact",
+                "link": "https://supremesprinklersllc.com/contact-supreme-sprinklers-spokane/"
+              }
+            ]
+          },
+          "rich_snippet": {},
+          "about_this_result": {}
+        },
+        {
+          "position": 2,
+          "title": "Sprinkler Repair & Irrigation Services in Spokane, WA",
+          "link": "https://www.groundsguys.com/spokane/residential-services/irrigation/",
+          "domain": "groundsguys.com",
+          "snippet": "Need sprinkler installation and repair in Spokane, WA? Call the experts at The Grounds Guys of Spokane for irrigation repair and installation services.",
+          "displayed_link": "https://www.groundsguys.com \u203a residential-services \u203a ir...",
+          "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5ecfed65e2d287bf89437083afa47df032.png",
+          "sitelinks": [],
+          "rich_snippet": {},
+          "about_this_result": {}
+        },
+        {
+          "position": 3,
+          "title": "Marko's Sprinklers: Spokane Sprinkler Installation ...",
+          "link": "https://markossprinklers.com/",
+          "domain": "markossprinklers.com",
+          "snippet": "We specialize in all aspects of lawn irrigation including; Sprinkler Installations, Sprinkler Repairs, Sprinkler turn-ons, Sprinkler Blowouts, Drip Line Repairs ...",
+          "displayed_link": "https://markossprinklers.com",
+          "favicon": "",
+          "sitelinks": {
+            "inline": [
+              {
+                "title": "Services",
+                "link": "https://markossprinklers.com/sprinkler-installation-and-repair-services"
+              },
+              {
+                "title": "Case Studies",
+                "link": "https://markossprinklers.com/case-studies"
+              },
+              {
+                "title": "About",
+                "link": "https://markossprinklers.com/about"
+              },
+              {
+                "title": "Blog",
+                "link": "https://markossprinklers.com/blog"
+              }
+            ]
+          },
+          "rich_snippet": {},
+          "about_this_result": {}
+        },
+        {
+          "position": 4,
+          "title": "Looking for good sprinkler installation company? : r/Spokane",
+          "link": "https://www.reddit.com/r/Spokane/comments/1b9io41/looking_for_good_sprinkler_installation_company/",
+          "domain": "reddit.com",
+          "snippet": "We went with B&B in the summer of 2020. It was on the higher end of our estimates but they offered a good warranty and availability to install sooner than ...",
+          "displayed_link": "5 comments \u00b7 1 year ago",
+          "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5e8ac7d985a5b0114e9b93f1e55c3ddb09.png",
+          "sitelinks": {
+            "list": [
+              {
+                "title": "Sprinkler blowout recommendations? : r/Spokane - Reddit",
+                "link": "https://www.reddit.com/r/Spokane/comments/q19o55/sprinkler_blowout_recommendations/",
+                "answer_count": 15,
+                "date": "Oct 4, 2021"
+              },
+              {
+                "title": "Recommendations for affordable quality sprinkler repair?",
+                "link": "https://www.reddit.com/r/Spokane/comments/vp8qit/recommendations_for_affordable_quality_sprinkler/",
+                "answer_count": 8,
+                "date": "Jul 1, 2022"
+              }
+            ]
+          },
+          "rich_snippet": {},
+          "about_this_result": {}
+        },
+        {
+          "position": 5,
+          "title": "Jones Sprinklers: Sprinkler Systems Service",
+          "link": "https://jonessprinklers.com/",
+          "domain": "jonessprinklers.com",
+          "snippet": "Our team of professionals is highly trained and experienced in all aspects of sprinkler installation, maintenance, and repair.",
+          "displayed_link": "https://jonessprinklers.com",
+          "favicon": "https://serpapi.com/searches/6850d8d9f3a0a71eb9719ca1/images/742a6701892be40a5b178e7a65b66f5efa4010b920730b32d2570bc073097c71.png",
+          "sitelinks": {
+            "inline": [
+              {
+                "title": "Contact",
+                "link": "https://jonessprinklers.com/contact/"
+              },
+              {
+                "title": "About",
+                "link": "https://jonessprinklers.com/about/"
+              },
+              {
+                "title": "Sprinkler Backflow Testing",
+                "link": "https://jonessprinklers.com/sprinkler-backflow-testing/"
+              },
+              {
+                "title": "Services",
+                "link": "https://jonessprinklers.com/services/"
+              }
+            ]
+          },
+          "rich_snippet": {},
+          "about_this_result": {}
+        }
+      ],
+      "ads": [],
+      "knowledge_graph": {}
+    }
+  ]
+}

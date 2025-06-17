@@ -68,18 +68,23 @@ class DataProcessor:
     
     def _extract_maps_listings(self, response: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Extract Google Maps listings from the response."""
-        local_results = response.get('local_results', [])
+        # SerpAPI returns local business data in local_results.places
+        local_results_data = response.get('local_results', {})
         maps_listings = []
 
         # Debug: Check what type local_results is
-        self.logger.debug(f"local_results type: {type(local_results)}, value: {local_results}")
+        self.logger.debug(f"local_results type: {type(local_results_data)}")
 
-        # Ensure local_results is a list before slicing
-        if not isinstance(local_results, list):
-            self.logger.warning(f"local_results is not a list, it's {type(local_results)}. Converting to empty list.")
-            local_results = []
+        # Extract places from local_results if it's a dict
+        if isinstance(local_results_data, dict):
+            places = local_results_data.get('places', [])
+            self.logger.debug(f"Found {len(places)} places in local_results")
+        else:
+            # Fallback: if local_results is a list (older API format)
+            places = local_results_data if isinstance(local_results_data, list) else []
+            self.logger.debug(f"Using local_results as list with {len(places)} items")
 
-        for result in local_results[:3]:  # Top 3 results
+        for result in places[:3]:  # Top 3 results
             listing = {
                 'position': result.get('position', 0),
                 'title': result.get('title', ''),

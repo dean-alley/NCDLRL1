@@ -1,0 +1,34 @@
+{
+  "business_name": "Revive Irrigation",
+  "location": {
+    "city": "Spokane",
+    "state": "WA"
+  },
+  "keywords": {
+    "core": [
+      "sprinkler system installation Spokane",
+      "irrigation system installation near me",
+      "sprinkler repair Spokane",
+      "sprinkler startup Spokane",
+      "sprinkler blowout Spokane",
+      "irrigation winterization Spokane"
+    ],
+    "upsell": [
+      "smart sprinkler system Spokane",
+      "wifi irrigation controller install Spokane",
+      "Rachio installer Spokane"
+    ],
+    "efficiency": [
+      "water efficient irrigation Spokane",
+      "custom sprinkler design Spokane",
+      "100% coverage sprinkler Spokane",
+      "low water lawn irrigation Spokane"
+    ],
+    "emergency": [
+      "broken sprinkler repair Spokane",
+      "leaking irrigation line Spokane",
+      "emergency irrigation repair Spokane"
+    ]
+  },
+  "output_prefix": "revive-irrigation-spokane"
+}

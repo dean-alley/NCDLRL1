@@ -1,0 +1,26 @@
+{
+  "name": "LocalRankLens - Local Search Competitive Intelligence",
+  "short_name": "LocalRankLens",
+  "description": "Generate comprehensive competitive intelligence reports for local search rankings and SEO analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

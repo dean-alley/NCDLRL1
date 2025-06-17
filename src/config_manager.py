@@ -135,7 +135,41 @@ class ConfigManager:
     def get_location_string(self) -> str:
         """Get location as a formatted string for search queries."""
         location = self.get_location()
-        return f"{location['city']}, {location['state']}"
+        return self._format_location_for_serpapi(location['city'], location['state'])
+
+    def _format_location_for_serpapi(self, city: str, state: str) -> str:
+        """
+        Format location for SerpAPI compatibility.
+
+        Args:
+            city: City name
+            state: State abbreviation or full name
+
+        Returns:
+            Formatted location string
+        """
+        # State abbreviation to full name mapping
+        state_mapping = {
+            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+            'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
+            'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
+            'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+            'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
+            'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
+            'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+            'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
+            'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+            'WI': 'Wisconsin', 'WY': 'Wyoming'
+        }
+
+        # Convert state abbreviation to full name if needed
+        state_full = state_mapping.get(state.upper(), state)
+
+        # Format as "City, State, United States"
+        return f"{city}, {state_full}, United States"
     
     def get_keywords(self) -> Dict[str, List[str]]:
         """Get all keyword groups."""

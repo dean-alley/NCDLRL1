@@ -266,7 +266,7 @@ export default function Home() {
           <ol className="list-decimal list-inside text-blue-800 space-y-2">
             <li>Fill in your business information and target location</li>
             <li>Add keyword groups (e.g., core, emergency, upsell) with relevant search terms</li>
-            <li>Click "Generate Config File" to download your configuration</li>
+            <li>Click &quot;Generate Config File&quot; to download your configuration</li>
             <li>Upload the config.json file to your LocalRankLens system</li>
             <li>Run the analysis to get your competitive intelligence report</li>
           </ol>

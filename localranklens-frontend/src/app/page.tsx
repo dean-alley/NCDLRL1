@@ -88,7 +88,7 @@ export default function Home() {
 
       return () => clearTimeout(timer);
     }
-  }, [businessName, city, state, keywordSuggestionsGenerated]);
+  }, [businessName, city, state, keywordSuggestionsGenerated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadExampleData = () => {
     setBusinessName(defaultData.businessName);
@@ -333,28 +333,7 @@ export default function Home() {
     }
   };
 
-  const generateConfig = () => {
-    // Auto-generate output prefix from business name
-    const outputPrefix = businessName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
-    const config = {
-      business_name: businessName,
-      location: {
-        city: city,
-        state: state
-      },
-      keywords: {} as Record<string, string[]>,
-      output_prefix: outputPrefix
-    };
-
-    keywordGroups.forEach(group => {
-      if (group.name && group.keywords.some(k => k.trim())) {
-        config.keywords[group.name] = group.keywords.filter(k => k.trim());
-      }
-    });
-
-    return config;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -469,7 +448,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">OUR PROVIDED SERVICES</h2>
             <p className="text-xl text-gray-300 max-w-4xl mx-auto">
-              LocalRankLens redefines "competitive intelligence" by empowering companies to understand their local search landscape,
+              LocalRankLens redefines &quot;competitive intelligence&quot; by empowering companies to understand their local search landscape,
               moving them beyond guesswork to achieving true market insight.
             </p>
           </div>
@@ -615,7 +594,7 @@ export default function Home() {
                   <div className="mb-4 p-3 bg-blue-900 border border-blue-700 rounded-lg">
                     <div className="flex items-center text-blue-200">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400 mr-2"></div>
-                      Analyzing "{businessName}" in {city}, {state} to generate industry-specific keywords...
+                      Analyzing &quot;{businessName}&quot; in {city}, {state} to generate industry-specific keywords...
                     </div>
                   </div>
                 )}
@@ -732,7 +711,7 @@ export default function Home() {
 
             <div className="mt-8 p-4 bg-blue-900 border border-blue-700 rounded-lg">
               <p className="text-blue-200 text-center">
-                <strong>⚡ If we don't find at least 3 growth opportunities – we'll refund your time.</strong><br />
+                <strong>⚡ If we don&apos;t find at least 3 growth opportunities – we&apos;ll refund your time.</strong><br />
                 No pressure, just results.
               </p>
             </div>

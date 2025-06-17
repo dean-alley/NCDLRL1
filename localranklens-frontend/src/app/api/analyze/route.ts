@@ -13,7 +13,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     // Get Heroku backend URL from environment variable
-    const backendUrl = process.env.HEROKU_BACKEND_URL || 'https://your-app-name.herokuapp.com';
+    const backendUrl = process.env.HEROKU_BACKEND_URL || 'https://localranklens-backend-d2b074fdca89.herokuapp.com';
 
     // Forward the request to the Heroku backend
     const response = await fetch(`${backendUrl}/api/analyze`, {

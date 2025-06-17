@@ -12,7 +12,7 @@ from data_processor import DataProcessor
 
 def test_data_processing():
     # Get real SerpAPI data
-    api_key = 'c84e8c2b0bcf76e9b1030c2a11100215c9a4f891d41c65f16d7f9136ddf57d2c'
+    api_key = 'your_serpapi_key_here'  # Replace with your actual API key
     test_params = {
         'api_key': api_key,
         'engine': 'google',

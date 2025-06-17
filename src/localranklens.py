@@ -136,10 +136,10 @@ class LocalRankLens:
             self.logger.info("Aggregating results for reporting")
             aggregated_data = self.data_processor.aggregate_results(all_results)
             
-            # Generate report
-            self.logger.info("Generating HTML report")
+            # Generate report (default to PDF)
+            self.logger.info("Generating PDF report")
             report_path = self.report_writer.generate_report(
-                aggregated_data, business_name, location, output_prefix
+                aggregated_data, business_name, location, output_prefix, format="pdf"
             )
             
             # Generate summary

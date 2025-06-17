@@ -10,6 +10,10 @@ flask>=2.3.0
 flask-cors>=4.0.0
 gunicorn>=21.2.0
 
+# PDF generation dependencies
+reportlab>=4.0.0
+xhtml2pdf>=0.2.5
+
 # Development and testing
 pytest>=7.4.0
 pytest-mock>=3.11.1

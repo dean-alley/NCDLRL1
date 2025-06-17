@@ -1,7 +1,7 @@
 """
 Report Writer for LocalRankLens
 
-Generates professional HTML reports using Jinja2 templating with 
+Generates professional HTML and PDF reports using Jinja2 templating with
 timestamped filenames and organized data presentation.
 """
 
@@ -11,6 +11,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional
 from jinja2 import Environment, FileSystemLoader, Template
+
+try:
+    from xhtml2pdf import pisa
+    PDF_AVAILABLE = True
+except ImportError:
+    PDF_AVAILABLE = False
 
 
 class ReportWriterError(Exception):
@@ -46,21 +52,22 @@ class ReportWriter:
             self.logger.warning(f"Template directory {self.template_dir} not found")
             self.jinja_env = None
     
-    def generate_report(self, aggregated_data: Dict[str, Any], 
-                       business_name: str, location: str, 
-                       output_prefix: str) -> str:
+    def generate_report(self, aggregated_data: Dict[str, Any],
+                       business_name: str, location: str,
+                       output_prefix: str, format: str = "html") -> str:
         """
-        Generate a complete HTML report from aggregated search data.
-        
+        Generate a complete HTML or PDF report from aggregated search data.
+
         Args:
             aggregated_data: Processed and aggregated search results
             business_name: Name of the business being analyzed
             location: Location string (e.g., "Seattle, WA")
             output_prefix: Prefix for the output filename
-            
+            format: Output format ("html" or "pdf")
+
         Returns:
             Path to the generated report file
-            
+
         Raises:
             ReportWriterError: If report generation fails
         """
@@ -69,25 +76,51 @@ class ReportWriter:
             template_data = self._prepare_template_data(
                 aggregated_data, business_name, location
             )
-            
+
             # Generate HTML content
             html_content = self._render_template(template_data)
-            
-            # Generate filename with timestamp
-            filename = self._generate_filename(output_prefix)
-            
-            # Write report to file
-            report_path = self.output_dir / filename
-            with open(report_path, 'w', encoding='utf-8') as f:
-                f.write(html_content)
-            
-            self.logger.info(f"Report generated successfully: {report_path}")
-            return str(report_path)
-            
+
+            if format.lower() == "pdf":
+                return self._generate_pdf_report(html_content, output_prefix)
+            else:
+                return self._generate_html_report(html_content, output_prefix)
+
         except Exception as e:
             error_msg = f"Failed to generate report: {e}"
             self.logger.error(error_msg)
             raise ReportWriterError(error_msg)
+
+    def _generate_html_report(self, html_content: str, output_prefix: str) -> str:
+        """Generate HTML report file."""
+        filename = self._generate_filename(output_prefix, "html")
+        report_path = self.output_dir / filename
+
+        with open(report_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        self.logger.info(f"HTML report generated successfully: {report_path}")
+        return str(report_path)
+
+    def _generate_pdf_report(self, html_content: str, output_prefix: str) -> str:
+        """Generate PDF report file."""
+        if not PDF_AVAILABLE:
+            raise ReportWriterError("PDF generation not available. Install xhtml2pdf: pip install xhtml2pdf")
+
+        filename = self._generate_filename(output_prefix, "pdf")
+        report_path = self.output_dir / filename
+
+        # Add CSS for better PDF formatting
+        pdf_html = self._add_pdf_styles(html_content)
+
+        # Generate PDF using xhtml2pdf
+        with open(report_path, "wb") as result_file:
+            pisa_status = pisa.CreatePDF(pdf_html, dest=result_file)
+
+        if pisa_status.err:
+            raise ReportWriterError(f"PDF generation failed with errors: {pisa_status.err}")
+
+        self.logger.info(f"PDF report generated successfully: {report_path}")
+        return str(report_path)
     
     def _prepare_template_data(self, aggregated_data: Dict[str, Any], 
                               business_name: str, location: str) -> Dict[str, Any]:
@@ -695,12 +728,12 @@ class ReportWriter:
             'recommended_strategy': 'Focus on local SEO and Google My Business optimization' if len(maps_competitors) < 15 else 'Differentiate through specialized services and superior customer experience'
         }
     
-    def _generate_filename(self, prefix: str) -> str:
+    def _generate_filename(self, prefix: str, format: str = "html") -> str:
         """Generate timestamped filename."""
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        
+
         # Check if file exists and add suffix if needed
-        base_filename = f"{prefix}_{timestamp}.html"
+        base_filename = f"{prefix}_{timestamp}.{format}"
         filename = base_filename
         counter = 1
         
@@ -769,3 +802,70 @@ class ReportWriter:
         }
         
         return summary_report
+
+    def _add_pdf_styles(self, html_content: str) -> str:
+        """Add PDF-specific CSS styles to HTML content."""
+        pdf_styles = """
+        <style>
+            @page {
+                size: A4;
+                margin: 1in;
+            }
+            body {
+                font-family: 'Arial', sans-serif;
+                font-size: 12px;
+                line-height: 1.4;
+                color: #333;
+            }
+            .header {
+                background: #2563eb !important;
+                color: white !important;
+                padding: 20px;
+                margin-bottom: 30px;
+                border-radius: 8px;
+            }
+            .group {
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+                border: 1px solid #ddd;
+                padding: 20px;
+                border-radius: 8px;
+            }
+            .keyword {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+            }
+            .result {
+                margin: 10px 0;
+                padding: 10px;
+                background: #f9f9f9;
+                border-left: 3px solid #2563eb;
+            }
+            h1, h2, h3 {
+                color: #1e40af;
+            }
+            .insights {
+                background: #eff6ff;
+                border: 1px solid #bfdbfe;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+            .competitive-analysis {
+                background: #f0fdf4;
+                border: 1px solid #bbf7d0;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+        </style>
+        """
+
+        # Insert styles before closing head tag
+        if '</head>' in html_content:
+            html_content = html_content.replace('</head>', pdf_styles + '</head>')
+        else:
+            # If no head tag, add styles at the beginning
+            html_content = pdf_styles + html_content
+
+        return html_content

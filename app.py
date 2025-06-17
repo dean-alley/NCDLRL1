@@ -90,24 +90,19 @@ def analyze():
             logger.info(f"Starting analysis for {config['business_name']}")
             lrl = LocalRankLens(config_path=temp_config_path)
             report_path = lrl.run_analysis()
-            
+
             logger.info(f"Analysis complete. Report saved to: {report_path}")
-            
-            # Read the generated HTML report
-            with open(report_path, 'r', encoding='utf-8') as f:
-                html_content = f.read()
-            
+
             # Clean up temp config file
             os.unlink(temp_config_path)
-            
-            # Return HTML content with proper headers
-            from flask import Response
-            return Response(
-                html_content,
-                mimetype='text/html',
-                headers={
-                    'Content-Disposition': f'attachment; filename="{Path(report_path).name}"'
-                }
+
+            # Return PDF file for download
+            pdf_filename = f"{config['business_name'].lower().replace(' ', '-')}_report.pdf"
+            return send_file(
+                report_path,
+                as_attachment=True,
+                download_name=pdf_filename,
+                mimetype='application/pdf'
             )
             
         except Exception as e:

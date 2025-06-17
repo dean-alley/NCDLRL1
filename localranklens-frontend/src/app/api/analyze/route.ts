@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
-import { writeFileSync, readFileSync, unlinkSync, readdirSync } from 'fs';
+import { writeFileSync, readFileSync, unlinkSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
 
@@ -63,12 +63,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         }
 
         try {
-          // Find the generated HTML report
+          // Find the most recent HTML report
           const outputDir = join(process.cwd(), '..', 'output');
           const files = readdirSync(outputDir);
-          const htmlFile = files.find((file: string) => 
-            file.startsWith(config.output_prefix) && file.endsWith('.html')
-          );
+          const htmlFiles = files.filter((file: string) => file.endsWith('.html'));
+
+          // Sort by modification time and get the most recent
+          const htmlFile = htmlFiles
+            .map(file => ({
+              name: file,
+              path: join(outputDir, file),
+              mtime: statSync(join(outputDir, file)).mtime
+            }))
+            .sort((a, b) => b.mtime.getTime() - a.mtime.getTime())[0]?.name;
 
           if (!htmlFile) {
             resolve(NextResponse.json(

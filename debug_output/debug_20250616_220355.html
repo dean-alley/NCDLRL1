@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalRankLens Report - Debug Business</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .report-meta {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .keyword-group {
+            background: white;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .group-header {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .keyword-results {
+            padding: 25px;
+        }
+
+        .keyword-item {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 30px;
+        }
+
+        .keyword-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .keyword-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .results-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.1em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 5px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .result-meta {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .result-snippet {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .maps-result {
+            border-left-color: #28a745;
+        }
+
+        .local-services-result {
+            border-left-color: #ffc107;
+        }
+
+        .organic-result {
+            border-left-color: #17a2b8;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .meta-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .competitive-insights {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .insight-title {
+            color: #856404;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .insight-text {
+            color: #856404;
+        }
+
+        .data-source-section {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .data-source-title {
+            color: #0066cc;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .data-source-content {
+            color: #004080;
+            line-height: 1.6;
+        }
+
+        .data-source-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .data-source-list li {
+            margin-bottom: 5px;
+        }
+
+        /* New styles for competitive insights sections */
+        .insights-section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .insights-header {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .insights-content {
+            padding: 25px;
+        }
+
+        .competitive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .competitor-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+
+        .competitor-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .competitor-stats {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .seo-recommendations {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .seo-header {
+            color: #1976d2;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .priority-high {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .priority-low {
+            background: #e8f5e8;
+            border-left-color: #4caf50;
+        }
+
+        .recommendation-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .rec-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .rec-description {
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .rec-example {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .rec-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-high {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .badge-medium {
+            background: #ffe0b2;
+            color: #ef6c00;
+        }
+
+        .badge-low {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .business-insights {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .insights-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights-list li {
+            background: white;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #9c27b0;
+        }
+
+        .next-steps {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .step-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .step-priority {
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 5px;
+        }
+
+        .step-action {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .step-timeline {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LocalRankLens Report</h1>
+            <div class="subtitle">Local Search Competitive Intelligence for Debug Business</div>
+        </div>
+
+        <div class="report-meta">
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Business</div>
+                    <div class="meta-value">Debug Business</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Location</div>
+                    <div class="meta-value">Spokane, WA</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Report Date</div>
+                    <div class="meta-value">June 16, 2025 at 10:03 PM</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Keywords Analyzed</div>
+                    <div class="meta-value">1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>Executive Summary</h2>
+            <p>This report analyzes local search visibility for <strong>Debug Business</strong> across 1 strategic keywords in Spokane, WA. The analysis covers Google Maps listings, Local Services Ads, and organic search results to provide comprehensive competitive intelligence.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Successful Searches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Maps Listings Found</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Local Services Ads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Organic Results</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-source-section">
+            <div class="data-source-title">📊 Data Sources & Methodology</div>
+            <div class="data-source-content">
+                <p><strong>How This Analysis Works:</strong></p>
+                <ul class="data-source-list">
+                    <li><strong>Search Engine:</strong> Google Search via SerpAPI (real-time data)</li>
+                    <li><strong>Location:</strong> Spokane, WA - localized search results</li>
+                    <li><strong>Data Points Collected:</strong>
+                        <ul>
+                            <li>🗺️ Google Maps/Local Pack listings (top 3)</li>
+                            <li>🎯 Local Services Ads (Google Guaranteed)</li>
+                            <li>🔍 Organic search results (top 5)</li>
+                            <li>💰 Paid search ads</li>
+                        </ul>
+                    </li>
+                    <li><strong>Analysis Date:</strong> June 16, 2025 at 10:03 PM</li>
+                    <li><strong>Keywords Processed:</strong> 1 of 1 successfully analyzed</li>
+                </ul>
+                <p><em>Note: This competitive intelligence is based on public search results and provides insights into your market landscape for strategic planning.</em></p>
+            </div>
+        </div>
+
+        <!-- Competitive Analysis Section -->
+        
+        <div class="insights-section">
+            <div class="insights-header">
+                🏆 Competitive Landscape Analysis
+            </div>
+            <div class="insights-content">
+                <div class="competitive-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Maps Competitors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Organic Competitors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">91%</div>
+                        <div class="stat-label">Market Opportunity</div>
+                    </div>
+                </div>
+
+                <h3>🗺️ Top Maps Competitors</h3>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">Supreme Sprinklers</div>
+                    <div class="competitor-stats">⭐ 4.9 rating | 127 reviews | Appears in 1 searches</div>
+                    <div class="competitor-stats">📞 (509) 867-6374</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">Jones Sprinklers, Inc.</div>
+                    <div class="competitor-stats">⭐ 4.9 rating | 1400 reviews | Appears in 1 searches</div>
+                    <div class="competitor-stats">📞 (509) 701-2598</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">Marko&#39;s Sprinklers</div>
+                    <div class="competitor-stats">⭐ 4.7 rating | 141 reviews | Appears in 1 searches</div>
+                    <div class="competitor-stats">📞 (509) 489-1901</div>
+                </div>
+                
+
+                <h3>🔍 Top Organic Competitors</h3>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">supremesprinklersllc.com</div>
+                    <div class="competitor-stats">Appears in 1 searches | Avg Position: 1.0</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">groundsguys.com</div>
+                    <div class="competitor-stats">Appears in 1 searches | Avg Position: 2.0</div>
+                </div>
+                
+                <div class="competitor-card">
+                    <div class="competitor-name">markossprinklers.com</div>
+                    <div class="competitor-stats">Appears in 1 searches | Avg Position: 3.0</div>
+                </div>
+                
+
+                <div class="business-insights">
+                    <h4>📊 Market Analysis</h4>
+                    <p><strong>Competition Level:</strong> MODERATE</p>
+                    <p><strong>Recommended Strategy:</strong> Focus on local SEO and Google My Business optimization</p>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- SEO Recommendations Section -->
+        
+        <div class="insights-section">
+            <div class="insights-header">
+                🚀 SEO Action Plan & Recommendations
+            </div>
+            <div class="insights-content">
+                <h3>⚡ Immediate SEO Fixes (7-Day Action Plan)</h3>
+                
+                <div class="recommendation-item priority-high">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-high">HIGH</span>
+                        Add Meta Description to Homepage
+                    </div>
+                    <div class="rec-description">Write a compelling 150-160 character summary including &#34;Spokane&#34;, &#34;sprinkler system&#34;, and key services.</div>
+                    
+                    <div class="rec-example">Example: &#34;Spokane&#39;s trusted sprinkler system pros for installation, repairs, and maintenance. Serving residential &amp; commercial clients with guaranteed results.&#34;</div>
+                    
+                    <div class="rec-meta">⏱️ Time needed: 1-2 hours</div>
+                </div>
+                
+                <div class="recommendation-item priority-high">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-high">HIGH</span>
+                        Update Title Tag
+                    </div>
+                    <div class="rec-description">Change homepage title to include location and primary service.</div>
+                    
+                    <div class="rec-example">Example: Your Business Name | sprinkler system &amp; Repair Services Spokane</div>
+                    
+                    <div class="rec-meta">⏱️ Time needed: 30 minutes</div>
+                </div>
+                
+                <div class="recommendation-item priority-medium">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-medium">MEDIUM</span>
+                        Add Missing Keywords to Main Page Copy
+                    </div>
+                    <div class="rec-description">Inject geo-targeted keywords naturally into body content.</div>
+                    
+                    <div class="rec-example">Example: Include phrases like &#34;sprinkler system Spokane&#34;, &#34;local sprinkler system contractor&#34;, &#34;Spokane sprinkler system installation&#34;</div>
+                    
+                    <div class="rec-meta">⏱️ Time needed: 2-3 hours</div>
+                </div>
+                
+                <div class="recommendation-item priority-medium">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-medium">MEDIUM</span>
+                        Optimize Image Alt Tags
+                    </div>
+                    <div class="rec-description">Add keyword-rich alt tags to every image on homepage and service pages.</div>
+                    
+                    <div class="rec-example">Example: Alt text: &#34;sprinkler system installation project in Spokane&#34; instead of &#34;IMG_001.jpg&#34;</div>
+                    
+                    <div class="rec-meta">⏱️ Time needed: 1-2 hours</div>
+                </div>
+                
+                <div class="recommendation-item priority-high">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-high">HIGH</span>
+                        Update Header Tag Structure (H1-H3)
+                    </div>
+                    <div class="rec-description">Make H1 more specific and add service-focused H2/H3 tags.</div>
+                    
+                    <div class="rec-example">Example: H1: &#34;sprinkler system Experts in Spokane&#34; | H2: &#34;Professional Installation Services&#34; | H3: &#34;Emergency Repair &amp; Maintenance&#34;</div>
+                    
+                    <div class="rec-meta">⏱️ Time needed: 1 hour</div>
+                </div>
+                
+
+                <h3>📝 Title Tag Suggestions</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        
+                        <li>Your Business Name | Sprinkler System Installation &amp; Repair Spokane</li>
+                        
+                        <li>Sprinkler System Contractors Spokane | Professional Installation &amp; Service</li>
+                        
+                        <li>Best Sprinkler System Company Spokane | Licensed &amp; Insured Professionals</li>
+                        
+                        <li>Spokane Sprinkler System Experts | Installation, Repair &amp; Maintenance</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>📄 Meta Description Suggestions</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        
+                        <li>Professional sprinkler system installation, repair, and maintenance in Spokane. Licensed contractors with guaranteed work and competitive pricing. Call today!</li>
+                        
+                        <li>Spokane&#39;s trusted sprinkler system experts. Quality installation, fast repairs, and reliable service for residential &amp; commercial clients. Free estimates available.</li>
+                        
+                        <li>Expert sprinkler system services in Spokane. From new installations to emergency repairs, we deliver quality results with satisfaction guaranteed.</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>📊 Content Optimization</h3>
+                <div class="seo-recommendations">
+                    <h4>Header Structure:</h4>
+                    <p><strong>H1:</strong> Sprinkler System Experts in Spokane</p>
+                    <p><strong>H2 Suggestions:</strong></p>
+                    <ul>
+                        
+                        <li>Professional Sprinkler System Installation</li>
+                        
+                        <li>Sprinkler System Repair &amp; Maintenance</li>
+                        
+                        <li>Emergency Sprinkler System Services</li>
+                        
+                        <li>Serving Spokane &amp; Surrounding Areas</li>
+                        
+                    </ul>
+
+                    <h4>Geo-Targeted Keywords to Include:</h4>
+                    <ul>
+                        
+                        <li>sprinkler system Spokane</li>
+                        
+                        <li>sprinkler system installation Spokane</li>
+                        
+                        <li>sprinkler system repair Spokane</li>
+                        
+                        <li>local sprinkler system contractor</li>
+                        
+                        <li>Spokane sprinkler system company</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>⚙️ Technical SEO Recommendations</h3>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Page Speed</div>
+                    <div class="rec-description">Optimize images and enable compression</div>
+                    <div class="rec-meta">Impact: HIGH | Effort: MEDIUM</div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Mobile Optimization</div>
+                    <div class="rec-description">Ensure responsive design and mobile-friendly navigation</div>
+                    <div class="rec-meta">Impact: HIGH | Effort: LOW</div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Schema Markup</div>
+                    <div class="rec-description">Add LocalBusiness and Service schema markup</div>
+                    <div class="rec-meta">Impact: MEDIUM | Effort: HIGH</div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Internal Linking</div>
+                    <div class="rec-description">Create service-specific landing pages with internal links</div>
+                    <div class="rec-meta">Impact: MEDIUM | Effort: MEDIUM</div>
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <!-- Google My Business Strategy Section -->
+        
+        <div class="insights-section">
+            <div class="insights-header">
+                📍 Google My Business Strategy
+            </div>
+            <div class="insights-content">
+                <h3>📊 Competitive Benchmarks</h3>
+                <div class="competitive-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Avg Competitor Rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">556</div>
+                        <div class="stat-label">Avg Competitor Reviews</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4.9</div>
+                        <div class="stat-label">Top Competitor Rating</div>
+                    </div>
+                </div>
+
+                <h3>📝 Posting Strategy</h3>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Offer Posts (Weekly)</div>
+                    <div class="rec-example">Get a FREE sprinkler system inspection with any service call this month – a $150+ value!</div>
+                    <div class="rec-meta">Call to Action: Call now to schedule</div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Service Highlights (Bi-weekly)</div>
+                    <div class="rec-example">Professional sprinkler system installation with 100% satisfaction guarantee</div>
+                    <div class="rec-meta">Call to Action: Book your consultation</div>
+                </div>
+                
+                <div class="recommendation-item">
+                    <div class="rec-title">Educational Content (Monthly)</div>
+                    <div class="rec-example">5 Signs You Need sprinkler system Repair in Spokane</div>
+                    <div class="rec-meta">Call to Action: Learn more on our website</div>
+                </div>
+                
+
+                <h3>📸 Photo Strategy</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        
+                        <li>Upload job-site photos weekly</li>
+                        
+                        <li>Geo-tag photos with Spokane neighborhoods</li>
+                        
+                        <li>Show before/after project results</li>
+                        
+                        <li>Include team photos and equipment</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>⭐ Review Strategy</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        
+                        <li>Respond to all reviews within 24 hours</li>
+                        
+                        <li>Ask satisfied customers for reviews via email/text</li>
+                        
+                        <li>Address negative reviews professionally</li>
+                        
+                        <li>Target 667 total reviews to exceed competition</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Business Development Insights Section -->
+        
+        <div class="insights-section">
+            <div class="insights-header">
+                💼 Business Development Insights
+            </div>
+            <div class="insights-content">
+                <h3>🎯 Market Overview</h3>
+                <div class="business-insights">
+                    <p><strong>Competition Level:</strong> LOW - Limited competition, good opportunity for market entry</p>
+                    <p><strong>Market Opportunity:</strong> LIMITED - Lower search volume, may need broader keyword strategy</p>
+
+                    <h4>Key Findings:</h4>
+                    <ul class="insights-list">
+                        
+                        <li>Competitors average 4.8 stars - quality service is expected in this market</li>
+                        
+                        <li>5 organic competitors found - SEO investment is necessary</li>
+                        
+                        <li>Local search is active for sprinkler system services in Spokane</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>🤔 Why You're Not Showing Up (In Plain English)</h3>
+                <div class="business-insights">
+                    <ul class="insights-list">
+                        
+                        <li>Your website isn&#39;t using the words people actually search for (like &#34;sprinkler system Spokane&#34;)</li>
+                        
+                        <li>You&#39;re not active on your Google Business profile with regular posts and updates</li>
+                        
+                        <li>Google can&#39;t tell you&#39;re the best sprinkler system option in Spokane</li>
+                        
+                        <li>Your competitors are more visible because they&#39;re doing basic SEO you&#39;re missing</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>✅ What's Getting Fixed</h3>
+                <div class="business-insights">
+                    <ul class="insights-list">
+                        
+                        <li>Your website will start using the exact words people search for in Spokane</li>
+                        
+                        <li>You&#39;ll have compelling offers posted to your Google Business profile</li>
+                        
+                        <li>You&#39;ll show up when people in Spokane search for sprinkler system help</li>
+                        
+                        <li>Your business will look more professional and trustworthy online</li>
+                        
+                    </ul>
+                </div>
+
+                <h3>🚀 Your Next Steps</h3>
+                <div class="next-steps">
+                    
+                    <div class="step-item">
+                        <div class="step-priority">Priority 1</div>
+                        <div class="step-action">Fix Your Website Basics</div>
+                        <div class="step-description">Update title tags, meta descriptions, and add location-specific keywords</div>
+                        <div class="step-timeline">Timeline: 1-2 weeks | Impact: HIGH</div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-priority">Priority 2</div>
+                        <div class="step-action">Activate Google My Business</div>
+                        <div class="step-description">Start posting weekly offers and uploading job photos</div>
+                        <div class="step-timeline">Timeline: Ongoing weekly | Impact: HIGH</div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-priority">Priority 3</div>
+                        <div class="step-action">Build Review Strategy</div>
+                        <div class="step-description">Systematically collect customer reviews to match competition</div>
+                        <div class="step-timeline">Timeline: 2-3 months | Impact: MEDIUM</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <div class="keyword-group">
+            <div class="group-header">
+                Debug_group Keywords (1 keywords)
+            </div>
+            <div class="keyword-results">
+                
+                
+                <div class="keyword-item">
+                    <div class="keyword-title">"sprinkler system installation Spokane"</div>
+                    
+                    
+                    <div class="results-section">
+                        <div class="section-title">🗺️ Google Maps Listings (Top 3)</div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Supreme Sprinklers</div>
+                            <div class="result-meta">
+                                ⭐ 4.9 (127 reviews)
+                                 | 📞 (509) 867-6374
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Jones Sprinklers, Inc.</div>
+                            <div class="result-meta">
+                                ⭐ 4.9 (1400 reviews)
+                                 | 📞 (509) 701-2598
+                                 | 📍 Spokane Valley, WA
+                            </div>
+                        </div>
+                        
+                        <div class="result-item maps-result">
+                            <div class="result-title">Marko&#39;s Sprinklers</div>
+                            <div class="result-meta">
+                                ⭐ 4.7 (141 reviews)
+                                 | 📞 (509) 489-1901
+                                 | 📍 Spokane, WA
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+
+                    
+                    <div class="results-section">
+                        <div class="section-title">🔍 Organic Search Results (Top 5)</div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Sprinkler Systems for Residential Properties in Spokane, WA</div>
+                            <div class="result-meta">
+                                🌐 supremesprinklersllc.com | Position: 1
+                            </div>
+                            
+                            <div class="result-snippet">Serving Spokane &amp; the Spokane Valley, we design, install &amp; maintain residential sprinkler systems and irrigation systems of all sizes!</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Sprinkler Repair &amp; Irrigation Services in Spokane, WA</div>
+                            <div class="result-meta">
+                                🌐 groundsguys.com | Position: 2
+                            </div>
+                            
+                            <div class="result-snippet">Need sprinkler installation and repair in Spokane, WA? Call the experts at The Grounds Guys of Spokane for irrigation repair and installation services.</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Marko&#39;s Sprinklers: Spokane Sprinkler Installation ...</div>
+                            <div class="result-meta">
+                                🌐 markossprinklers.com | Position: 3
+                            </div>
+                            
+                            <div class="result-snippet">We specialize in all aspects of lawn irrigation including; Sprinkler Installations, Sprinkler Repairs, Sprinkler turn-ons, Sprinkler Blowouts, Drip Line Repairs ...</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Looking for good sprinkler installation company? : r/Spokane</div>
+                            <div class="result-meta">
+                                🌐 reddit.com | Position: 4
+                            </div>
+                            
+                            <div class="result-snippet">We went with B&amp;B in the summer of 2020. It was on the higher end of our estimates but they offered a good warranty and availability to install sooner than ...</div>
+                            
+                        </div>
+                        
+                        <div class="result-item organic-result">
+                            <div class="result-title">Jones Sprinklers: Sprinkler Systems Service</div>
+                            <div class="result-meta">
+                                🌐 jonessprinklers.com | Position: 5
+                            </div>
+                            
+                            <div class="result-snippet">Our team of professionals is highly trained and experienced in all aspects of sprinkler installation, maintenance, and repair.</div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
+
+        <div class="footer">
+            <p>Report generated by LocalRankLens on June 16, 2025 at 10:03 PM</p>
+            <p>This report provides competitive intelligence for digital marketing strategy and client presentations.</p>
+        </div>
+    </div>
+</body>
+</html>

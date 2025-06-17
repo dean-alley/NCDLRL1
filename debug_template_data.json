@@ -1,7 +1,7 @@
 {
   "business_name": "Debug Business",
   "location": "Spokane, WA",
-  "report_date": "June 16, 2025 at 09:54 PM",
+  "report_date": "June 16, 2025 at 10:03 PM",
   "total_keywords": 1,
   "summary": {
     "total_keywords": 1,
@@ -226,10 +226,291 @@
       ]
     }
   },
-  "competitive_insights": [
-    {
-      "title": "Local Maps Presence",
-      "text": "Found 3 Google Maps listings across all keywords, indicating active local competition."
+  "competitive_insights": {
+    "competitive_analysis": {
+      "total_maps_competitors": 3,
+      "total_organic_competitors": 5,
+      "top_maps_competitors": [
+        {
+          "name": "Supreme Sprinklers",
+          "appearances": 1,
+          "avg_rating": 4.9,
+          "total_reviews": 127,
+          "phone": "(509) 867-6374",
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ]
+        },
+        {
+          "name": "Jones Sprinklers, Inc.",
+          "appearances": 1,
+          "avg_rating": 4.9,
+          "total_reviews": 1400,
+          "phone": "(509) 701-2598",
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ]
+        },
+        {
+          "name": "Marko's Sprinklers",
+          "appearances": 1,
+          "avg_rating": 4.7,
+          "total_reviews": 141,
+          "phone": "(509) 489-1901",
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ]
+        }
+      ],
+      "top_organic_competitors": [
+        {
+          "domain": "supremesprinklersllc.com",
+          "appearances": 1,
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ],
+          "avg_position": 1.0,
+          "positions": [
+            1
+          ]
+        },
+        {
+          "domain": "groundsguys.com",
+          "appearances": 1,
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ],
+          "avg_position": 2.0,
+          "positions": [
+            2
+          ]
+        },
+        {
+          "domain": "markossprinklers.com",
+          "appearances": 1,
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ],
+          "avg_position": 3.0,
+          "positions": [
+            3
+          ]
+        },
+        {
+          "domain": "reddit.com",
+          "appearances": 1,
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ],
+          "avg_position": 4.0,
+          "positions": [
+            4
+          ]
+        },
+        {
+          "domain": "jonessprinklers.com",
+          "appearances": 1,
+          "keywords": [
+            "sprinkler system installation Spokane"
+          ],
+          "avg_position": 5.0,
+          "positions": [
+            5
+          ]
+        }
+      ],
+      "market_analysis": {
+        "market_saturation": "MODERATE",
+        "opportunity_score": 91,
+        "recommended_strategy": "Focus on local SEO and Google My Business optimization"
+      }
+    },
+    "seo_recommendations": {
+      "immediate_fixes": [
+        {
+          "priority": "HIGH",
+          "task": "Add Meta Description to Homepage",
+          "description": "Write a compelling 150-160 character summary including \"Spokane\", \"sprinkler system\", and key services.",
+          "example": "\"Spokane's trusted sprinkler system pros for installation, repairs, and maintenance. Serving residential & commercial clients with guaranteed results.\"",
+          "timeframe": "1-2 hours"
+        },
+        {
+          "priority": "HIGH",
+          "task": "Update Title Tag",
+          "description": "Change homepage title to include location and primary service.",
+          "example": "Your Business Name | sprinkler system & Repair Services Spokane",
+          "timeframe": "30 minutes"
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Add Missing Keywords to Main Page Copy",
+          "description": "Inject geo-targeted keywords naturally into body content.",
+          "example": "Include phrases like \"sprinkler system Spokane\", \"local sprinkler system contractor\", \"Spokane sprinkler system installation\"",
+          "timeframe": "2-3 hours"
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Optimize Image Alt Tags",
+          "description": "Add keyword-rich alt tags to every image on homepage and service pages.",
+          "example": "Alt text: \"sprinkler system installation project in Spokane\" instead of \"IMG_001.jpg\"",
+          "timeframe": "1-2 hours"
+        },
+        {
+          "priority": "HIGH",
+          "task": "Update Header Tag Structure (H1-H3)",
+          "description": "Make H1 more specific and add service-focused H2/H3 tags.",
+          "example": "H1: \"sprinkler system Experts in Spokane\" | H2: \"Professional Installation Services\" | H3: \"Emergency Repair & Maintenance\"",
+          "timeframe": "1 hour"
+        }
+      ],
+      "title_tag_suggestions": [
+        "Your Business Name | Sprinkler System Installation & Repair Spokane",
+        "Sprinkler System Contractors Spokane | Professional Installation & Service",
+        "Best Sprinkler System Company Spokane | Licensed & Insured Professionals",
+        "Spokane Sprinkler System Experts | Installation, Repair & Maintenance"
+      ],
+      "meta_description_suggestions": [
+        "Professional sprinkler system installation, repair, and maintenance in Spokane. Licensed contractors with guaranteed work and competitive pricing. Call today!",
+        "Spokane's trusted sprinkler system experts. Quality installation, fast repairs, and reliable service for residential & commercial clients. Free estimates available.",
+        "Expert sprinkler system services in Spokane. From new installations to emergency repairs, we deliver quality results with satisfaction guaranteed."
+      ],
+      "content_optimization": {
+        "header_structure": {
+          "h1": "Sprinkler System Experts in Spokane",
+          "h2_suggestions": [
+            "Professional Sprinkler System Installation",
+            "Sprinkler System Repair & Maintenance",
+            "Emergency Sprinkler System Services",
+            "Serving Spokane & Surrounding Areas"
+          ]
+        },
+        "geo_targeted_keywords": [
+          "sprinkler system Spokane",
+          "sprinkler system installation Spokane",
+          "sprinkler system repair Spokane",
+          "local sprinkler system contractor",
+          "Spokane sprinkler system company"
+        ],
+        "content_sections": [
+          "Why Choose Our Sprinkler System Services in Spokane",
+          "Sprinkler System Installation Process",
+          "Maintenance & Repair Services",
+          "Service Areas in Spokane"
+        ]
+      },
+      "technical_seo": [
+        {
+          "category": "Page Speed",
+          "recommendation": "Optimize images and enable compression",
+          "impact": "HIGH",
+          "effort": "MEDIUM"
+        },
+        {
+          "category": "Mobile Optimization",
+          "recommendation": "Ensure responsive design and mobile-friendly navigation",
+          "impact": "HIGH",
+          "effort": "LOW"
+        },
+        {
+          "category": "Schema Markup",
+          "recommendation": "Add LocalBusiness and Service schema markup",
+          "impact": "MEDIUM",
+          "effort": "HIGH"
+        },
+        {
+          "category": "Internal Linking",
+          "recommendation": "Create service-specific landing pages with internal links",
+          "impact": "MEDIUM",
+          "effort": "MEDIUM"
+        }
+      ]
+    },
+    "gmb_recommendations": {
+      "competitive_benchmarks": {
+        "average_rating": 4.8,
+        "average_reviews": 556,
+        "top_rated_competitor": 4.9
+      },
+      "posting_strategy": [
+        {
+          "frequency": "Weekly",
+          "type": "Offer Posts",
+          "example": "Get a FREE sprinkler system inspection with any service call this month \u2013 a $150+ value!",
+          "cta": "Call now to schedule"
+        },
+        {
+          "frequency": "Bi-weekly",
+          "type": "Service Highlights",
+          "example": "Professional sprinkler system installation with 100% satisfaction guarantee",
+          "cta": "Book your consultation"
+        },
+        {
+          "frequency": "Monthly",
+          "type": "Educational Content",
+          "example": "5 Signs You Need sprinkler system Repair in Spokane",
+          "cta": "Learn more on our website"
+        }
+      ],
+      "photo_strategy": [
+        "Upload job-site photos weekly",
+        "Geo-tag photos with Spokane neighborhoods",
+        "Show before/after project results",
+        "Include team photos and equipment"
+      ],
+      "review_strategy": [
+        "Respond to all reviews within 24 hours",
+        "Ask satisfied customers for reviews via email/text",
+        "Address negative reviews professionally",
+        "Target 667 total reviews to exceed competition"
+      ]
+    },
+    "business_insights": {
+      "market_overview": {
+        "competition_level": "LOW - Limited competition, good opportunity for market entry",
+        "market_opportunity": "LIMITED - Lower search volume, may need broader keyword strategy",
+        "key_findings": [
+          "Competitors average 4.8 stars - quality service is expected in this market",
+          "5 organic competitors found - SEO investment is necessary",
+          "Local search is active for sprinkler system services in Spokane"
+        ]
+      },
+      "layman_explanation": {
+        "why_not_showing_up": [
+          "Your website isn't using the words people actually search for (like \"sprinkler system Spokane\")",
+          "You're not active on your Google Business profile with regular posts and updates",
+          "Google can't tell you're the best sprinkler system option in Spokane",
+          "Your competitors are more visible because they're doing basic SEO you're missing"
+        ],
+        "whats_getting_fixed": [
+          "Your website will start using the exact words people search for in Spokane",
+          "You'll have compelling offers posted to your Google Business profile",
+          "You'll show up when people in Spokane search for sprinkler system help",
+          "Your business will look more professional and trustworthy online"
+        ]
+      },
+      "next_steps": [
+        {
+          "priority": 1,
+          "action": "Fix Your Website Basics",
+          "description": "Update title tags, meta descriptions, and add location-specific keywords",
+          "timeline": "1-2 weeks",
+          "impact": "HIGH"
+        },
+        {
+          "priority": 2,
+          "action": "Activate Google My Business",
+          "description": "Start posting weekly offers and uploading job photos",
+          "timeline": "Ongoing weekly",
+          "impact": "HIGH"
+        },
+        {
+          "priority": 3,
+          "action": "Build Review Strategy",
+          "description": "Systematically collect customer reviews to match competition",
+          "timeline": "2-3 months",
+          "impact": "MEDIUM"
+        }
+      ]
     }
-  ]
+  }
 }

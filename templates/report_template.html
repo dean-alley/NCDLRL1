@@ -289,6 +289,200 @@
         .data-source-list li {
             margin-bottom: 5px;
         }
+
+        /* New styles for competitive insights sections */
+        .insights-section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .insights-header {
+            background: #28a745;
+            color: white;
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .insights-content {
+            padding: 25px;
+        }
+
+        .competitive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .competitor-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+
+        .competitor-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .competitor-stats {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .seo-recommendations {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .seo-header {
+            color: #1976d2;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .priority-high {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .priority-low {
+            background: #e8f5e8;
+            border-left-color: #4caf50;
+        }
+
+        .recommendation-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .rec-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .rec-description {
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .rec-example {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .rec-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-high {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .badge-medium {
+            background: #ffe0b2;
+            color: #ef6c00;
+        }
+
+        .badge-low {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .business-insights {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .insights-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights-list li {
+            background: white;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #9c27b0;
+        }
+
+        .next-steps {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .step-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .step-priority {
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 5px;
+        }
+
+        .step-action {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .step-timeline {
+            font-size: 0.9em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -364,6 +558,231 @@
                 <p><em>Note: This competitive intelligence is based on public search results and provides insights into your market landscape for strategic planning.</em></p>
             </div>
         </div>
+
+        <!-- Competitive Analysis Section -->
+        {% if competitive_insights and competitive_insights.competitive_analysis %}
+        <div class="insights-section">
+            <div class="insights-header">
+                🏆 Competitive Landscape Analysis
+            </div>
+            <div class="insights-content">
+                <div class="competitive-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.competitive_analysis.total_maps_competitors }}</div>
+                        <div class="stat-label">Maps Competitors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.competitive_analysis.total_organic_competitors }}</div>
+                        <div class="stat-label">Organic Competitors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.competitive_analysis.market_analysis.opportunity_score }}%</div>
+                        <div class="stat-label">Market Opportunity</div>
+                    </div>
+                </div>
+
+                <h3>🗺️ Top Maps Competitors</h3>
+                {% for competitor in competitive_insights.competitive_analysis.top_maps_competitors[:3] %}
+                <div class="competitor-card">
+                    <div class="competitor-name">{{ competitor.name }}</div>
+                    <div class="competitor-stats">⭐ {{ competitor.avg_rating }} rating | {{ competitor.total_reviews }} reviews | Appears in {{ competitor.appearances }} searches</div>
+                    <div class="competitor-stats">📞 {{ competitor.phone }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>🔍 Top Organic Competitors</h3>
+                {% for competitor in competitive_insights.competitive_analysis.top_organic_competitors[:3] %}
+                <div class="competitor-card">
+                    <div class="competitor-name">{{ competitor.domain }}</div>
+                    <div class="competitor-stats">Appears in {{ competitor.appearances }} searches | Avg Position: {{ "%.1f"|format(competitor.avg_position) }}</div>
+                </div>
+                {% endfor %}
+
+                <div class="business-insights">
+                    <h4>📊 Market Analysis</h4>
+                    <p><strong>Competition Level:</strong> {{ competitive_insights.competitive_analysis.market_analysis.market_saturation }}</p>
+                    <p><strong>Recommended Strategy:</strong> {{ competitive_insights.competitive_analysis.market_analysis.recommended_strategy }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- SEO Recommendations Section -->
+        {% if competitive_insights and competitive_insights.seo_recommendations %}
+        <div class="insights-section">
+            <div class="insights-header">
+                🚀 SEO Action Plan & Recommendations
+            </div>
+            <div class="insights-content">
+                <h3>⚡ Immediate SEO Fixes (7-Day Action Plan)</h3>
+                {% for fix in competitive_insights.seo_recommendations.immediate_fixes %}
+                <div class="recommendation-item priority-{{ fix.priority|lower }}">
+                    <div class="rec-title">
+                        <span class="priority-badge badge-{{ fix.priority|lower }}">{{ fix.priority }}</span>
+                        {{ fix.task }}
+                    </div>
+                    <div class="rec-description">{{ fix.description }}</div>
+                    {% if fix.example %}
+                    <div class="rec-example">Example: {{ fix.example }}</div>
+                    {% endif %}
+                    <div class="rec-meta">⏱️ Time needed: {{ fix.timeframe }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>📝 Title Tag Suggestions</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        {% for suggestion in competitive_insights.seo_recommendations.title_tag_suggestions %}
+                        <li>{{ suggestion }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>📄 Meta Description Suggestions</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        {% for suggestion in competitive_insights.seo_recommendations.meta_description_suggestions %}
+                        <li>{{ suggestion }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>📊 Content Optimization</h3>
+                <div class="seo-recommendations">
+                    <h4>Header Structure:</h4>
+                    <p><strong>H1:</strong> {{ competitive_insights.seo_recommendations.content_optimization.header_structure.h1 }}</p>
+                    <p><strong>H2 Suggestions:</strong></p>
+                    <ul>
+                        {% for h2 in competitive_insights.seo_recommendations.content_optimization.header_structure.h2_suggestions %}
+                        <li>{{ h2 }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h4>Geo-Targeted Keywords to Include:</h4>
+                    <ul>
+                        {% for keyword in competitive_insights.seo_recommendations.content_optimization.geo_targeted_keywords %}
+                        <li>{{ keyword }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>⚙️ Technical SEO Recommendations</h3>
+                {% for tech_rec in competitive_insights.seo_recommendations.technical_seo %}
+                <div class="recommendation-item">
+                    <div class="rec-title">{{ tech_rec.category }}</div>
+                    <div class="rec-description">{{ tech_rec.recommendation }}</div>
+                    <div class="rec-meta">Impact: {{ tech_rec.impact }} | Effort: {{ tech_rec.effort }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Google My Business Strategy Section -->
+        {% if competitive_insights and competitive_insights.gmb_recommendations %}
+        <div class="insights-section">
+            <div class="insights-header">
+                📍 Google My Business Strategy
+            </div>
+            <div class="insights-content">
+                <h3>📊 Competitive Benchmarks</h3>
+                <div class="competitive-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.gmb_recommendations.competitive_benchmarks.average_rating }}</div>
+                        <div class="stat-label">Avg Competitor Rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.gmb_recommendations.competitive_benchmarks.average_reviews }}</div>
+                        <div class="stat-label">Avg Competitor Reviews</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ competitive_insights.gmb_recommendations.competitive_benchmarks.top_rated_competitor }}</div>
+                        <div class="stat-label">Top Competitor Rating</div>
+                    </div>
+                </div>
+
+                <h3>📝 Posting Strategy</h3>
+                {% for post in competitive_insights.gmb_recommendations.posting_strategy %}
+                <div class="recommendation-item">
+                    <div class="rec-title">{{ post.type }} ({{ post.frequency }})</div>
+                    <div class="rec-example">{{ post.example }}</div>
+                    <div class="rec-meta">Call to Action: {{ post.cta }}</div>
+                </div>
+                {% endfor %}
+
+                <h3>📸 Photo Strategy</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        {% for strategy in competitive_insights.gmb_recommendations.photo_strategy %}
+                        <li>{{ strategy }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>⭐ Review Strategy</h3>
+                <div class="seo-recommendations">
+                    <ul>
+                        {% for strategy in competitive_insights.gmb_recommendations.review_strategy %}
+                        <li>{{ strategy }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Business Development Insights Section -->
+        {% if competitive_insights and competitive_insights.business_insights %}
+        <div class="insights-section">
+            <div class="insights-header">
+                💼 Business Development Insights
+            </div>
+            <div class="insights-content">
+                <h3>🎯 Market Overview</h3>
+                <div class="business-insights">
+                    <p><strong>Competition Level:</strong> {{ competitive_insights.business_insights.market_overview.competition_level }}</p>
+                    <p><strong>Market Opportunity:</strong> {{ competitive_insights.business_insights.market_overview.market_opportunity }}</p>
+
+                    <h4>Key Findings:</h4>
+                    <ul class="insights-list">
+                        {% for finding in competitive_insights.business_insights.market_overview.key_findings %}
+                        <li>{{ finding }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>🤔 Why You're Not Showing Up (In Plain English)</h3>
+                <div class="business-insights">
+                    <ul class="insights-list">
+                        {% for reason in competitive_insights.business_insights.layman_explanation.why_not_showing_up %}
+                        <li>{{ reason }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>✅ What's Getting Fixed</h3>
+                <div class="business-insights">
+                    <ul class="insights-list">
+                        {% for fix in competitive_insights.business_insights.layman_explanation.whats_getting_fixed %}
+                        <li>{{ fix }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <h3>🚀 Your Next Steps</h3>
+                <div class="next-steps">
+                    {% for step in competitive_insights.business_insights.next_steps %}
+                    <div class="step-item">
+                        <div class="step-priority">Priority {{ step.priority }}</div>
+                        <div class="step-action">{{ step.action }}</div>
+                        <div class="step-description">{{ step.description }}</div>
+                        <div class="step-timeline">Timeline: {{ step.timeline }} | Impact: {{ step.impact }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         {% for group_name, group_data in results_by_group.items() %}
         <div class="keyword-group">

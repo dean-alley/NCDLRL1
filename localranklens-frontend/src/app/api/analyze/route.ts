@@ -32,14 +32,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       );
     }
 
-    // Get the HTML report from the backend
-    const htmlContent = await response.text();
+    // Get the PDF report from the backend
+    const pdfBuffer = await response.arrayBuffer();
 
-    // Return the HTML report
-    return new NextResponse(htmlContent, {
+    // Return the PDF report
+    return new NextResponse(pdfBuffer, {
       headers: {
-        'Content-Type': 'text/html',
-        'Content-Disposition': `attachment; filename="localranklens-report.html"`,
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="localranklens-report.pdf"`,
       },
     });
   } catch (error) {

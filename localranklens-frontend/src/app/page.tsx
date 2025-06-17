@@ -368,14 +368,14 @@ export default function Home() {
         throw new Error(`Analysis failed: ${response.statusText}`);
       }
 
-      // Get the HTML report as a blob
-      const htmlBlob = await response.blob();
+      // Get the PDF report as a blob
+      const pdfBlob = await response.blob();
 
-      // Auto-download the HTML report
-      const url = URL.createObjectURL(htmlBlob);
+      // Auto-download the PDF report
+      const url = URL.createObjectURL(pdfBlob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${businessName.toLowerCase().replace(/[^a-z0-9]/g, '-')}_${new Date().toISOString().slice(0, 10)}_report.html`;
+      a.download = `${businessName.toLowerCase().replace(/[^a-z0-9]/g, '-')}_${new Date().toISOString().slice(0, 10)}_report.pdf`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

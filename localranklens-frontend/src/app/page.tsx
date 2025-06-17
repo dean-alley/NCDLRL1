@@ -79,26 +79,40 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsGenerating(true);
-    
+
     try {
       const config = generateConfig();
-      
-      // For now, just download the config file
-      // Later we'll integrate with the backend API
-      const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
+
+      // Call the LocalRankLens API to generate the report
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(config),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Analysis failed: ${response.statusText}`);
+      }
+
+      // Get the HTML report as a blob
+      const htmlBlob = await response.blob();
+
+      // Auto-download the HTML report
+      const url = URL.createObjectURL(htmlBlob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'config.json';
+      a.download = `${config.output_prefix}_${new Date().toISOString().slice(0, 10)}_report.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
-      alert('Config file downloaded! Upload this to your LocalRankLens system to run the analysis.');
+
+      alert('Analysis complete! Your competitive intelligence report has been downloaded.');
     } catch (error) {
       console.error('Error:', error);
-      alert('Error generating config file');
+      alert(`Error generating report: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsGenerating(false);
     }
@@ -254,7 +268,7 @@ export default function Home() {
                 disabled={isGenerating || !businessName || !city || !state}
                 className="px-8 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isGenerating ? 'Generating...' : 'Generate Config File'}
+                {isGenerating ? 'Analyzing...' : 'Generate Report'}
               </button>
             </div>
           </form>
@@ -266,9 +280,9 @@ export default function Home() {
           <ol className="list-decimal list-inside text-blue-800 space-y-2">
             <li>Fill in your business information and target location</li>
             <li>Add keyword groups (e.g., core, emergency, upsell) with relevant search terms</li>
-            <li>Click &quot;Generate Config File&quot; to download your configuration</li>
-            <li>Upload the config.json file to your LocalRankLens system</li>
-            <li>Run the analysis to get your competitive intelligence report</li>
+            <li>Click &quot;Generate Report&quot; to start the competitive analysis</li>
+            <li>Wait for the analysis to complete (typically 1-2 minutes)</li>
+            <li>Your HTML report will automatically download when ready</li>
           </ol>
         </div>
       </div>

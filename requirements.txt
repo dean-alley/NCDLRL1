@@ -1,0 +1,17 @@
+# LocalRankLens Dependencies
+
+# Core dependencies
+requests>=2.31.0
+jinja2>=3.1.2
+python-dotenv>=1.0.0
+
+# Development and testing
+pytest>=7.4.0
+pytest-mock>=3.11.1
+pytest-cov>=4.1.0
+
+# Optional: For better JSON handling and data validation
+pydantic>=2.0.0
+
+# Optional: For enhanced logging
+colorlog>=6.7.0

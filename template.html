@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ config.business_name }} SEO Report</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    h2 { color: #444; border-bottom: 1px solid #ccc; }
+    .keyword { margin-bottom: 1em; }
+    .result-block { padding: 0.5em 0; border-bottom: 1px dashed #aaa; }
+  </style>
+</head>
+<body>
+  <h1>{{ config.business_name }} – SEO Snapshot ({{ config.city }}, {{ config.state }})</h1>
+  {% for group, items in results.items() %}
+    <h2>{{ group.capitalize() }} Keywords</h2>
+    {% for entry in items %}
+      <div class="keyword">
+        <strong>{{ entry.keyword }}</strong>
+        <div class="result-block">
+          <pre>{{ entry.data | tojson(indent=2) }}</pre>
+        </div>
+      </div>
+    {% endfor %}
+  {% endfor %}
+</body>
+</html>

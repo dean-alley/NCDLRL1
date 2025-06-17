@@ -361,7 +361,20 @@ export default function Home() {
     setIsGenerating(true);
 
     try {
-      const config = generateConfig();
+      // Convert form data to simple keywords format for the API
+      const allKeywords = keywordGroups
+        .flatMap(group => group.keywords)
+        .filter(keyword => keyword.trim())
+        .join('\n');
+
+      const formData = {
+        business_name: businessName,
+        location: {
+          city: city,
+          state: state
+        },
+        keywords: allKeywords
+      };
 
       // Call the LocalRankLens API to generate the report
       const response = await fetch('/api/analyze', {
@@ -369,7 +382,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(config),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -383,13 +396,13 @@ export default function Home() {
       const url = URL.createObjectURL(htmlBlob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${config.output_prefix}_${new Date().toISOString().slice(0, 10)}_report.html`;
+      a.download = `${businessName.toLowerCase().replace(/[^a-z0-9]/g, '-')}_${new Date().toISOString().slice(0, 10)}_report.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      alert('Analysis complete! Your competitive intelligence report has been downloaded.');
+      alert('Analysis complete! Your comprehensive competitive intelligence report has been downloaded.');
     } catch (error) {
       console.error('Error:', error);
       alert(`Error generating report: ${error instanceof Error ? error.message : 'Unknown error'}`);

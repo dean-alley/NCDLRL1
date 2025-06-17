@@ -60,9 +60,14 @@ def analyze():
         
         # Process keywords - convert from textarea string to structured format
         keyword_lines = [line.strip() for line in data['keywords'].split('\n') if line.strip()]
-        
+
         if not keyword_lines:
             return jsonify({'error': 'No valid keywords provided'}), 400
+
+        # Limit total keywords to avoid timeout (max 3 keywords total)
+        if len(keyword_lines) > 3:
+            keyword_lines = keyword_lines[:3]
+            logger.info(f"Limited keywords to first 3 to avoid timeout: {keyword_lines}")
         
         # Create structured config for LocalRankLens
         config = {
@@ -72,10 +77,7 @@ def analyze():
                 "state": data['location']['state']
             },
             "keywords": {
-                "core": keyword_lines[:max(1, len(keyword_lines) * 6 // 10)],  # 60% as core
-                "upsell": keyword_lines[len(keyword_lines) * 6 // 10:len(keyword_lines) * 8 // 10],  # 20% as upsell
-                "efficiency": keyword_lines[len(keyword_lines) * 8 // 10:len(keyword_lines) * 9 // 10],  # 10% as efficiency
-                "emergency": keyword_lines[len(keyword_lines) * 9 // 10:]  # 10% as emergency
+                "core": keyword_lines  # Use all keywords in one group to avoid multiplying API calls
             },
             "output_prefix": data['business_name'].lower().replace(' ', '-').replace('&', 'and')
         }
